@@ -44,5 +44,25 @@ RSpec.describe StringCalculator do
         expect(StringCalculator.add("//*\n1*2*3*4")).to eq(10)
       end
     end
+
+    context 'with negative numbers' do
+      it 'throws exception for single negative' do
+        expect { StringCalculator.add("1,-2,3") }.to raise_error(
+          ArgumentError, "negatives not allowed: -2"
+        )
+      end
+
+      it 'shows all negatives in exception message' do
+        expect { StringCalculator.add("1,-2,-3,4") }.to raise_error(
+          ArgumentError, "negatives not allowed: -2, -3"
+        )
+      end
+
+      it 'throws exception with custom delimiter' do
+        expect { StringCalculator.add("//;\n1;-2;3") }.to raise_error(
+          ArgumentError, "negatives not allowed: -2"
+        )
+      end
+    end
   end
 end
