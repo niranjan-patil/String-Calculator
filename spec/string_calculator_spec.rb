@@ -64,5 +64,17 @@ RSpec.describe StringCalculator do
         )
       end
     end
+
+    context 'with numbers bigger than 1000' do
+      it 'ignores numbers greater than 1000' do
+        expect(StringCalculator.add("5,1001")).to eq(5)
+        expect(StringCalculator.add("1000,2,1001")).to eq(1002)
+        expect(StringCalculator.add("1,2,3,3000")).to eq(6)
+      end
+
+      it 'includes 1000 but ignores 1001' do
+        expect(StringCalculator.add("1000,1001")).to eq(1000)
+      end
+    end
   end
 end
